@@ -7,7 +7,7 @@
 
 3. Put the jar where the text file is located 
 
-4. Execute the command to run the project >> java -jar bowling.jar {$NameOfTheFile}
+4. Execute the command to run the project >> java -jar bowling.jar {NameOfTheFile}
 
 For instance >> java -jar bowling.jar sample.txt
    
