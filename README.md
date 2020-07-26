@@ -11,3 +11,6 @@
 
 For instance >> java -jar bowling.jar sample.txt
    
+
+Note : Since the rule of the Then Throw has not been clarified neither in the video nor the document ,
+       I considered Then Throw having 3 scores always as in the video and the document.
