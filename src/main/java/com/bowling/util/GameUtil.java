@@ -6,9 +6,9 @@ public class GameUtil {
 	public static String getHeader(int maxLengthName) {
 		StringBuilder sbHeader = new StringBuilder();
 		if(maxLengthName > 8) {
-			sbHeader.append("Frame  ").append(addSpace(maxLengthName-5));
+			sbHeader.append("Frame      ").append(addSpace(maxLengthName-5));
 		}else {
-			sbHeader.append("Frame     ");
+			sbHeader.append("Frame         ");
 		}
 		sbHeader.append(addTabNumber(10));
 		return sbHeader.toString();
@@ -23,7 +23,7 @@ public class GameUtil {
 	private static String addTabNumber(int n) {
 		StringBuilder sbTabNumber = new StringBuilder();
 		for(int i=1;i<=n;i++) {
-			sbTabNumber.append(i).append("     ");
+			sbTabNumber.append(i).append(Constant.HeaderSpace);
 		}
 		return sbTabNumber.toString();
 	}

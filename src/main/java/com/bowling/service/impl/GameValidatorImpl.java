@@ -2,15 +2,17 @@ package com.bowling.service.impl;
 
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.stereotype.Service;
-
 import com.bowling.service.GameValidator;
 import com.bowling.util.Constant;
 
-@Service
 public class GameValidatorImpl implements GameValidator{
     
+    /**
+	  * Validate if the input of Player's pintfalls are all valid
+	  *
+	  * @param  mapPlayers  Map containing Players and their pintfalls
+	  * @return boolean representing if the input is valid or not
+	  */
 	@Override
 	public boolean validateInputPlayers(Map<String,List<String>> mapPlayers) {
 		String[] scores;

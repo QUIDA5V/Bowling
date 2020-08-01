@@ -4,85 +4,70 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import com.bowling.service.BowlingGame;
 
-@RunWith(SpringRunner.class)
 public class TestBowlingGameImpl {
-    @TestConfiguration
-    static class BowlingGameImplTestContextConfiguration {
-        @Bean
-        public BowlingGame bowlingGame() {
-            return new BowlingGameImpl();
-        }
-    }
 
-    @Autowired
-    BowlingGame bowlingGame;
+    BowlingGame bowlingGame = new BowlingGameImpl();
     
     @Test
     public void getPinFallsWhenPinsAreNotSame_thenReturnTrue() {
     	 // given
-    	String[] scores1 = {"10","7","3","9","0","10","0","8","8","2","F","6","10","10","10","8","1"};
-        String[] scores2 = {"5","5","10","9","F","10","10","10","7","3","0","10","3","4","10","5","4"};
+    	String[] pintFalls1 = {"10","7","3","9","0","10","0","8","8","2","F","6","10","10","10","8","1"};
+        String[] pintFalls2 = {"5","5","10","9","F","10","10","10","7","3","0","10","3","4","10","5","4"};
 
     	//when
-    	String resultPinFalls1 = bowlingGame.getPinFallsPlayer(scores1);
-    	String resultPinFalls2 = bowlingGame.getPinFallsPlayer(scores2);
+    	String resultPinFalls1 = bowlingGame.getPinFallsPlayer(pintFalls1);
+    	String resultPinFalls2 = bowlingGame.getPinFallsPlayer(pintFalls2);
 
     	String expectedWithOutSpace1 ="X7/90X088/F6XXX81"; 
     	String expectedWithOutSpace2 ="5/X9FXXX7/0/34X54"; 
-    	assertTrue(resultPinFalls1.replace(" ","").equals(expectedWithOutSpace1));
-    	assertTrue(resultPinFalls2.replace(" ","").equals(expectedWithOutSpace2));
+    	assertTrue(resultPinFalls1.replace(" ","").replace("|","").equals(expectedWithOutSpace1));
+    	assertTrue(resultPinFalls2.replace(" ","").replace("|","").equals(expectedWithOutSpace2));
     }
     @Test
     public void getPinFallsWhenAllPinsAreF_thenReturnTrue() {
     	 // given
-    	String[] scores = {"F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F"};
+    	String[] pintFalls = {"F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F"};
        
     	//when
-    	String resultPinFalls = bowlingGame.getPinFallsPlayer(scores);
+    	String resultPinFalls = bowlingGame.getPinFallsPlayer(pintFalls);
     	String expectedWithOutSpace ="FFFFFFFFFFFFFFFFFFFFF"; 
-    	assertTrue(resultPinFalls.replace(" ","").equals(expectedWithOutSpace));
+    	assertTrue(resultPinFalls.replace(" ","").replace("|","").equals(expectedWithOutSpace));
     }
     
     @Test
     public void getPinFallsWhenAllPinsAreZero_thenReturnTrue() {
     	 // given
-    	String[] scores = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
+    	String[] pintFalls = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
         
     	//when
-    	String resultPinFalls = bowlingGame.getPinFallsPlayer(scores);
+    	String resultPinFalls = bowlingGame.getPinFallsPlayer(pintFalls);
 
     	String expectedWithOutSpace ="000000000000000000000"; 
 
-    	assertTrue(resultPinFalls.replace(" ","").equals(expectedWithOutSpace));
+    	assertTrue(resultPinFalls.replace(" ","").replace("|","").equals(expectedWithOutSpace));
     }
     @Test
     public void getPinFallsWhenAllPinsAreThen_thenReturnTrue() {
     	 // given
-    	String[] scores = {"10","10","10","10","10","10","10","10","10","10","10","10"};
+    	String[] pintFalls = {"10","10","10","10","10","10","10","10","10","10","10","10"};
         
     	//when
-    	String resultPinFalls = bowlingGame.getPinFallsPlayer(scores);
+    	String resultPinFalls = bowlingGame.getPinFallsPlayer(pintFalls);
 
     	String expectedWithOutSpace ="XXXXXXXXXXXX"; 
 
-    	assertTrue(resultPinFalls.replace(" ","").equals(expectedWithOutSpace));
+    	assertTrue(resultPinFalls.replace(" ","").replace("|","").equals(expectedWithOutSpace));
     }
     @Test
     public void getScoresPlayerWhenHaveRandomValues() {
     	 // given
-    	int[] scores = {10,7,3,9,0,10,0,8,8,2,0,6,10,10,10,8,1};
+    	int[] pintFalls = {10,7,3,9,0,10,0,8,8,2,0,6,10,10,10,8,1};
         
     	//when
-    	String resultScorePlayer = bowlingGame.getScoresPlayer(scores);
-        String[] resultScorePlayer1 = resultScorePlayer.split(" ");
+    	String resultScorePlayer = bowlingGame.getScoresPlayer(pintFalls);
+        String[] resultScorePlayer1 = resultScorePlayer.replace("|","").split(" ");
 
     	int[] result = new int[10];
     	int[] expectedResult = {20,39,48,66,74,84,90,120,148,167};
@@ -100,11 +85,11 @@ public class TestBowlingGameImpl {
     @Test
     public void getScoresPlayerWhenValuesAreThen() {
     	 // given
-    	int[] scores = {10,10,10,10,10,10,10,10,10,10,10,10};
+    	int[] pintFalls = {10,10,10,10,10,10,10,10,10,10,10,10};
         
     	//when
-    	String resultScorePlayer = bowlingGame.getScoresPlayer(scores);
-        String[] resultScorePlayer1 = resultScorePlayer.split(" ");
+    	String resultScorePlayer = bowlingGame.getScoresPlayer(pintFalls);
+        String[] resultScorePlayer1 = resultScorePlayer.replace("|","").split(" ");
 
     	int[] result = new int[10];
     	int[] expectedResult = {30,60,90,120,150,180,210,240,270,300};
